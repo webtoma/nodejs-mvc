@@ -17,9 +17,9 @@ In this exercise, we'll be exploring the principles of MVC (Model-View-Controlle
 - [Node.js](https://nodejs.org/en/download/) installed on your system.
 - A code editor (like [VSCode](https://code.visualstudio.com/download)).
 
-## Step-by-step Instructions
+# Step-by-step Instructions
 
-### 1. Project Initialization:
+## 1. Project Initialization:
 
 1. Create a new directory for your project:
    ```
@@ -32,15 +32,14 @@ In this exercise, we'll be exploring the principles of MVC (Model-View-Controlle
    npm init
    ```
 
-   ### 2. Install Required Packages:
+## 2. Install Required Packages:
 
 1. Using npm, install the necessary packages:
+    ```
+    npm install express body-parser fs ejs
+    ```
 
-```
-npm install express mongoose body-parser fs ejs
-```
-
-### 3. Organize the MVC structure
+## 3. Organize the MVC structure
 ```bash
 node-mvc-app
 │
@@ -50,13 +49,12 @@ node-mvc-app
 └── server.js
 ```
 
-### 4. Develop the Model with JSON Files:
+## 4. Develop the Model with JSON Files:
 
 Instead of using Mongoose and MongoDB to store our data, we will utilize JSON files as our "database". This can be a straightforward method for handling data in smaller applications or for educational purposes.
 
-#### Step 4.1: Directory and File Setup
+### Step 4.1: Directory and File Setup
 - Inside your `models` directory, create a JSON file that will store your data. For instance, `articles.json`:
-
   ```json
   [
     {
@@ -71,7 +69,7 @@ Instead of using Mongoose and MongoDB to store our data, we will utilize JSON fi
     }
   ]
     ```
-    #### Step 4.2: Data Handling Module
+### Step 4.2: Data Handling Module
 - Create a JavaScript file that will act as a model and manage data interactions (fetching, adding, deleting) with your JSON file, say, `articleModel.js`.
 
 - Here's a basic example with functionalities to get all articles, get a specific article, add an article, and delete an article:
@@ -112,8 +110,6 @@ module.exports = {
 };
 
 ```
-
-
 #### Explanation:
 - `fs (File System)` module is used to interact with the file system and manipulate (read/write) files.
 - `path module` provides utilities for working with file and directory paths.
@@ -123,12 +119,10 @@ module.exports = {
 - `addArticle` writes a new article to the JSON file.
 - `deleteArticle` removes an article with a specific ID from the JSON file.
 
-
-
-### 5. Design the Views:
+## 5. Design the Views:
 Within the views directory, design your templates. You can use EJS or any template engine of your choice.
 
-#### Step 5.1: Setup EJS
+### Step 5.1: Setup EJS
 In your server.js, set EJS as the view engine for your Express application:
 ```javascript
 const express = require('express');
@@ -137,7 +131,7 @@ const app = express();
 app.set('view engine', 'ejs');
 ```
 
-#### Step 5.2: Designing Basic Views
+### Step 5.2: Designing Basic Views
 Inside your views directory, create EJS templates. Common templates might include a homepage, a form for adding new articles, and a detail view for reading articles.
 
 Here is the `index.ejs` file: 
@@ -208,16 +202,13 @@ and the `addarticle.ejs`:
 - Remember to provide navigation options, like links to go back or to add new articles, enhancing user experience.
 - Optionally, include CSS or Bootstrap to style your pages and make them more visually appealing.
 
-
-
-
-### 6. Implement the Controller:
-#### Step 6.1: Basic Controller Setup
+## 6. Implement the Controller:
+### Step 6.1: Basic Controller Setup
 - In your controllers directory, create a JavaScript file, such as `articleController.js`.
 - Your controller will export methods that handle various HTTP requests. Each method interacts with the model, possibly renders a view, and returns an HTTP response.
 
-#### Step 6.2: Implementing Controller Methods
-##### Get All Articles 
+### Step 6.2: Implementing Controller Methods
+#### Get All Articles 
 - Implement a method to fetch and display all articles:
 ```javascript
 const { getArticles } = require('../models/articleModel');
@@ -230,7 +221,7 @@ exports.getAllArticles = (req, res) => {
 - `getArticles` is imported from the model to retrieve all articles.
 - `res.render('index', { articles })` renders the `index.ejs` view and passes the articles to it.
 
-##### Get a Specific Article
+#### Get a Specific Article
 - Implement a method to fetch and display a single article:
 ```javascript
 const { getArticleById } = require('../models/articleModel');
@@ -247,7 +238,7 @@ exports.getArticle = (req, res) => {
 - If the article isn't found, a 404 response is sent.
 - If found, the `detail.ejs` view is rendered and passed the article.
 
-##### Add a New Article
+#### Add a New Article
 - Implement a method to add a new article:
 ```javascript
 const { addArticle } = require('../models/articleModel');
@@ -267,7 +258,7 @@ exports.addArticle = (req, res) => {
 - After adding, it redirects to the homepage.
 
 
-##### Delete an Article
+#### Delete an Article
 - Implement a method to delete an article:
 ```javascript
 const { deleteArticle } = require('../models/articleModel');
@@ -280,7 +271,7 @@ exports.deleteArticle = (req, res) => {
 - `deleteArticle` is used to remove the article from the JSON file based on its ID.
 - It redirects to the homepage after deletion.
 
-#### Step 6.3: Error Handling
+### Step 6.3: Error Handling
 Ensure to implement basic error handling, for instance, if data needed to render a view is not available, handle such scenarios gracefully by rendering an error page or redirecting with an error message.
 
 #### Notes:
@@ -289,16 +280,16 @@ Ensure to implement basic error handling, for instance, if data needed to render
 - Implement validation and sanitize user inputs in methods handling POST requests to prevent potential issues.
 
 
-### 7. Bring it all together in server.js:
+## 7. Bring it all together in server.js:
 
 In an Express.js application, routes define the endpoints and HTTP methods that the application should respond to. Routes pass the incoming requests to the specified controller methods which manage the underlying business logic.
 
-#### Step 7.1: Set Up Routing File
+### Step 7.1: Set Up Routing File
 - Create a routes directory and create a routing file inside it, for example, `articleRoutes.js`.
 - This file will import your controller methods and define your application’s endpoints.
 
-#### Step 7.2: Basic Routing
-##### Import Dependencies and Controller
+### Step 7.2: Basic Routing
+#### Import Dependencies and Controller
 - In `articleRoutes.js`, import Express and your controller.
 ```javascript
 const express = require('express');
@@ -310,41 +301,41 @@ const {
 } = require('../controllers/articleController');
 ```
 
-##### Instantiate a router object:
+#### Instantiate a router object:
 ```javascript
 const router = express.Router();
 ```
-##### Define Routes
+#### Define Routes
 - Map your HTTP methods and endpoints to specific controller methods.
-##### Get All Articles
+#### Get All Articles
 - Route to get and display all articles.
 ```javascript
 router.get('/', getAllArticles);
 ```
 - It maps GET requests to the application’s root ('/') to the `getAllArticles` method.
 
-##### Get a Specific Article
+#### Get a Specific Article
 - Route to get and display a single article.
 ```javascript
 router.get('/articles/:id', getArticle);
 ```
 - `:id` is a route parameter, allowing you to access the specified ID via `req.params.id` in your controller.
 
-##### Add a New Article
+#### Add a New Article
 - Route to add a new article.
 ```javascript
 router.post('/articles', addArticle);
 ```
 - It maps POST requests to `/articles` to the `addArticle` method.
 
-##### Delete an Article
+#### Delete an Article
 - Route to delete an article.
 ```javascript
 router.delete('/articles/:id', deleteArticle);
 ```
 - It maps DELETE requests to `/articles/:id` to the `deleteArticle` method.
 
-#### Step 7.3: Middleware for Parsing Request Bodies
+### Step 7.3: Middleware for Parsing Request Bodies
 - Ensure that your application is set to parse incoming request bodies, which is necessary for POST and PUT requests.
 ```javascript
 // In your main server file (e.g., app.js or server.js):
@@ -356,7 +347,7 @@ app.use(express.json());
 - `express.urlencoded()` is middleware to parse URL-encoded bodies, commonly sent by HTML forms.
 - `express.json()` is middleware to parse incoming JSON payloads.
 
-#### Step 7.4: Integrate Routes into App
+### Step 7.4: Integrate Routes into App
 - Import and use your routes in your main server file.
 ```javascript
 const articleRoutes = require('./routes/articleRoutes');
@@ -373,17 +364,12 @@ app.use('/', articleRoutes);
 
 
 
-### 8. Run the Application:
+## 8. Run the Application:
 With everything in place, run your Node.js application:
-
-```
+```javascript
 node server.js
 ```
-
-Visit the application in your web browser at [http://localhost:YOUR_PORT_NUMBER](http://localhost:YOUR_PORT_NUMBER).
-
-
-
+- Visit the application in your web browser at [http://localhost:YOUR_PORT_NUMBER](http://localhost:YOUR_PORT_NUMBER).
 
 
 
@@ -395,8 +381,7 @@ Visit the application in your web browser at [http://localhost:YOUR_PORT_NUMBER]
 
 ## Further Reading
 - [Express documentation](https://expressjs.com/)
-- [Mongoose documentation](https://mongoosejs.com/docs/guide.html)
 - [EJS documentation](https://ejs.co/#docs)
 
-### Conclusion
+## Conclusion
 By the end of this exercise, you should have a functional CRUD application structured using the MVC pattern in Node.js. This architecture will make it easier for you to maintain and scale your application.
