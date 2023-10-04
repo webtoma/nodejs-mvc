@@ -186,7 +186,7 @@ and the `addarticle.ejs`:
 </head>
 <body>
     <h1>Add New Article</h1>
-    <form action="/articles" method="POST">
+    <form action="/articles/new" method="POST">
         <label for="title">Title:</label>
         <input type="text" name="title" required><br>
         <label for="content">Content:</label>
