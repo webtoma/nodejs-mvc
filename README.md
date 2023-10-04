@@ -87,12 +87,12 @@ const getArticles = () => {
 
 const getArticleById = (id) => {
   const articles = getArticles();
-  return articles.find(article => article.id === id);
+  return articles.articles.find(article => article.id === id);
 };
 
 const addArticle = (newArticle) => {
   const articles = getArticles();
-  articles.push(newArticle);
+  articles.articles.push(newArticle);
   fs.writeFileSync(articlesPath, JSON.stringify(articles, null, 2));
 };
 
@@ -123,7 +123,7 @@ module.exports = {
 Within the views directory, design your templates. You can use EJS or any template engine of your choice.
 
 ### Step 5.1: Setup EJS
-In your server.js, set EJS as the view engine for your Express application:
+In your `server.js`, set EJS as the view engine for your Express application:
 ```javascript
 const express = require('express');
 const app = express();
@@ -244,13 +244,16 @@ exports.getArticle = (req, res) => {
 const { addArticle } = require('../models/articleModel');
 
 exports.addArticle = (req, res) => {
-  const newArticle = {
-    id: Date.now(),
-    title: req.body.title,
-    content: req.body.content
-  };
-  addArticle(newArticle);
-  res.redirect('/');
+  if (req.body.title && req.body.content) {
+        addArticle({
+        id: Date.now(),
+        title: req.body.title,
+        content: req.body.content
+        });
+        res.redirect('/');
+    } else {
+        res.render('addarticle');
+    }
 };
 ```
 - `newArticle` object gathers data from `req.body` (form data should be parsed using middleware, e.g., express.urlencoded()).
@@ -349,9 +352,12 @@ app.use(express.json());
 
 ### Step 7.4: Integrate Routes into App
 - Import and use your routes in your main server file.
+- Listen to the port 4111
 ```javascript
-const articleRoutes = require('./routes/articleRoutes');
+const articleRoutes = require('./articleRoutes');
 app.use('/', articleRoutes);
+const PORT = process.env.PORT || 4111;
+app.listen(PORT, console.log("Server has started at port " + PORT))
 ```
 - It makes your application use the defined routes for incoming requests.
 
@@ -362,14 +368,12 @@ app.use('/', articleRoutes);
 - Protect routes as necessary (e.g., with middleware for authentication and authorization).
 - Always validate and sanitize incoming data, especially if it’s used to interact with a data store.
 
-
-
 ## 8. Run the Application:
 With everything in place, run your Node.js application:
 ```javascript
 node server.js
 ```
-- Visit the application in your web browser at [http://localhost:YOUR_PORT_NUMBER](http://localhost:YOUR_PORT_NUMBER).
+- Visit the application in your web browser at [http://localhost:4111](http://localhost:4111).
 
 
 

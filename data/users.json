@@ -1,0 +1,49 @@
+{
+    "users": [
+      {
+        "name": "John",
+        "surname": "Doe",
+        "address": "123 Main St, Anytown, AT 12345",
+        "telephone": "+11234567890",
+        "email": "john.doe@example.com",
+        "latitude": "40.7128",
+        "longitude": "-74.0060",
+        "biography": "John is a software developer who specializes in frontend technologies...",
+        "job": "Software Developer"
+      },
+      {
+        "name": "Jane",
+        "surname": "Smith",
+        "address": "456 Oak Dr, Somecity, SC 67890",
+        "telephone": "+12234567890",
+        "email": "jane.smith@example.com",
+        "latitude": "34.0522",
+        "longitude": "-118.2437",
+        "biography": "Jane is a graphic designer with a penchant for modern aesthetics...",
+        "job": "Graphic Designer"
+      },
+      {
+        "name": "Jim",
+        "surname": "Beam",
+        "address": "789 Pine Rd, Othertown, OT 11223",
+        "telephone": "+13234567890",
+        "email": "jim.beam@example.com",
+        "latitude": "36.7783",
+        "longitude": "-119.4179",
+        "biography": "Jim is a seasoned marketing professional who focuses on digital marketing strategies...",
+        "job": "Marketing Manager"
+      },
+      {
+        "name": "Jill",
+        "surname": "White",
+        "address": "101 Maple Ln, Thistown, TT 44332",
+        "telephone": "+14234567890",
+        "email": "jill.white@example.com",
+        "latitude": "37.7749",
+        "longitude": "-122.4194",
+        "biography": "Jill is a committed financial analyst who provides insights into investment strategies...",
+        "job": "Financial Analyst"
+      }
+    ]
+  }
+  
