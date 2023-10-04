@@ -146,7 +146,7 @@ Here is the `index.ejs` file:
 <body>
     <h1>All Articles</h1>
     <ul>
-        <% articles.forEach(article => { %>
+        <% articles.articles.forEach(article => { %>
             <li>
                 <a href="/articles/<%= article.id %>"><%= article.title %></a>
             </li>
